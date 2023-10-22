@@ -1,0 +1,52 @@
+body {
+  background-image: url("login.gif");
+  background-size: cover;
+  height: 100vh;
+    padding:0;
+    margin:0;
+}
+.l{
+    margin-top: 100px;
+    margin-left: 440px;
+    margin-right: 0px;
+    margin-buttom: 0px;
+}
+h1 {
+    font-size: 50px;
+    text-align: center;
+    margin-top: 100px;
+    animation-name: example;
+    animation-duration: 7s;
+    animation-iteration-count: infinite;
+}
+.input{
+border: 3px solid #9514e0;
+padding: 5px
+}
+@keyframes example {
+  25%   {color:violet;}
+}
+.lable{
+font-size: 20px;
+}
+.submit {
+  display: inline-block;
+  padding: 15px 25px;
+  font-size: 10px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #000000;
+  background-color: ###9932CC;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+}
+.submit:hover {background-color: #9932CC}
+
+.submit:active {
+  background-color: #9932CC;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}

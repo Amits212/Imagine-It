@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>home</title>
+    <style>
+ .logout {
+        display: inline-block;
+        padding: 15px 25px;
+        font-size: 10px;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        outline: none;
+        color: #000000;
+        background-color: #9932CC;
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 9px #999;
+        position: absolute;
+        top: 10px;
+        left: 10px;
+    }
+
+    .logout:hover {
+        background-color: #9932CC;
+    }
+
+    .logout:active {
+        background-color: #9932CC;
+        box-shadow: 0 5px #666;
+        transform: translateY(4px);
+    }
+
+    .logout:not(:hover) {
+        background-color: #F8F8FF;
+    }
+@font-face {
+  font-family: 'Rocher';
+  src: url(https://assets.codepen.io/9632/RocherColorGX.woff2);
+}
+
+body {
+  font-family: 'Rocher';
+  font-size: 30px;
+  text-align: center; /* Align the text to the center */
+  margin: 0; /* Reset the default margin */
+}
+@font-palette-values --Purples {
+  font-family: Rocher;
+  base-palette: 6;
+}
+.purples {
+  font-palette: --Purples;
+   margin-top: 5px
+}
+h3{
+margin-right: 70%;
+}
+.NM {
+  display: inline-block;
+  padding: 15px 25px;
+  font-size: 10px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #000000;
+  background-color: ###9932CC;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+  position: absolute;
+  top: 15px;
+  left: 88%;
+}
+.NM:hover {background-color: #9932CC}
+.NM:active {
+  background-color: #9932CC;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+.video-container {
+        width: 400px;
+        margin: auto;
+        margin-top: 20px;
+    }
+.video-container video {
+        width: 100%;
+        height: auto;
+}
+.video-container:hover{
+background-color: #9370DB
+}
+    </style>
+    <h1 class="purples">ImagineiT</h1>
+    <form method="GET" action="{% url 'home' %}">
+        <label for="video-filter">Filter by Video Name:</label>
+        <input type="text" id="video-filter" name="video_name" value="Enter video name">
+        <button type="submit">Apply Filter</button>
+    </form>
+</head>
+<body>
+<a href="http://127.0.0.1:8000/login"><input type="button" value="Logout" class="logout"></a>
+<a href="http://127.0.0.1:8000/upload"><input type="button" value="New Media" class="NM"></a>
+<script>
+    function incrementLikes(videoId) {
+        var form = document.getElementById('like-form-' + videoId);
+        var formData = new FormData(form);
+
+        fetch(form.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            var likeCountElement = document.getElementById('like-count-' + videoId);
+            likeCountElement.innerText = data.likes;
+        })
+        .catch(error => console.error('Error:', error));
+    }
+</script>
+{% for x in all_videos %}
+    <div class="video-container">
+        <h3 class="text-center mt-2 mb-2">{{ x.caption }}</h3>
+        <video controls="controls">
+            <source src="{{ x.video.url }}" type="video/mp4"/>
+        </video>
+        <form method="post" action="{% url 'add_comment' x.id %}">
+            {% csrf_token %}
+            <input type="text" name="comment_text" placeholder="Add a comment">
+            <button type="submit">Submit</button>
+        </form>
+        <ul>
+            {% for comment in x.comments.all %}
+                <li style="font-size: 15px;">{{ comment.text }}</li>
+            {% endfor %}
+        </ul>
+        <form method="post" action="{% url 'delete_video' x.id %}">
+            {% csrf_token %}
+            <input type="submit" value="Delete"/>
+        </form>
+        <form id="like-form-{{ x.id }}" method="post" action="{% url 'increment_likes' x.id %}">
+    {% csrf_token %}
+    <button type="button" onclick="incrementLikes({{ x.id }})">Like</button>
+    <p style="font-size: 15px;">Likes: <span id="like-count-{{ x.id }}">{{ x.like }}</span></p>
+</form>
+    </div>
+{% endfor %}
+</body>
+</html>

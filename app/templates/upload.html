@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>upload</title>
+    <style>
+   @font-face {
+  font-family: 'Rocher';
+  src: url(https://assets.codepen.io/9632/RocherColorGX.woff2);
+}
+body {
+  font-family: 'Rocher';
+  font-size: 25px;
+  text-align: center;
+  margin: 0; /* Reset the default margin */
+  margin-top: 5px
+  animation-name: example;
+  animation-duration: 4s;
+}
+@font-palette-values --Purples {
+  font-family: Rocher;
+  base-palette: 6;
+}
+.purples {
+  font-palette: --Purples;
+}
+.in {
+        display: inline-block;
+        padding: 15px 25px;
+        font-size: 10px;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        outline: none;
+        color: #000000;
+        background-color: #9932CC;
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 9px #999;
+        position: absolute;
+        top: 200px;
+        left: 450px;
+    }
+    .in:hover {
+        background-color: #9932CC;
+    }
+    .in:active {
+        background-color: #9932CC;
+        box-shadow: 0 5px #666;
+        transform: translateY(4px);
+    }
+    .in:not(:hover) {
+        background-color: #F8F8FF;
+    }
+    .home {
+        display: inline-block;
+        padding: 15px 25px;
+        font-size: 10px;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        outline: none;
+        color: #000000;
+        background-color: #9932CC;
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 9px #999;
+        position: absolute;
+        top: 10px;
+        left: 10px;
+    }
+
+    .home:hover {
+        background-color: #9932CC;
+    }
+
+    .home:active {
+        background-color: #9932CC;
+        box-shadow: 0 5px #666;
+        transform: translateY(4px);
+    }
+
+    .home:not(:hover) {
+        background-color: #F8F8FF;
+    }
+    .myDiv {
+  border: 10px outset purple;
+  background-color: lightblue;
+  text-align: center;
+}
+.ball{
+ text-indent:1px;
+ width:70px;
+ height:70px;
+ background-color:purple;
+ border-radius:80%;
+ position:absolute;
+ right:0%;
+ bottom:0%;
+ text-align:center;
+ color:white;
+ animation:ballmove 8s 1;
+ }
+ @-webkit-keyframes ballmove{
+ 0%{
+ transform:rotateZ(-360deg);
+ top:0%;
+ right:93%;
+ animation-timing-function:ease-in;
+ }
+ 12.5%{
+ right:93%;
+ top:82%;
+ animation-timing-function:ease-out;
+ }
+ 25%{
+ right:77.5%;
+ top:20.5%;
+ animation-timing-function:ease-in;
+ }
+ 37.5%{
+ right:62%;
+ top:82%;
+ animation-timing-function:ease-out;
+ }
+ 50%{
+ right:46.5%;
+ top:35.87%;
+ animation-timing-function:ease-in;
+ }
+ 62.5%{
+ right:31%;
+ top:82%;
+ animation-timing-function:ease-out;
+ }
+ 75%{
+ right:15.5%;
+ top:47.4%;
+ animation-timing-function:ease-in;
+ }
+ 100%{
+ right:0%;
+ top:82%;
+ }
+ }
+</style>
+</head>
+<body>
+<h3 class="purples">Here you can upload your new media</h3>
+<div class="ball">
+  <p style="font-size: 15px;">ImagineIt</p>
+ </div>
+<div class="myDiv">
+<form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Upload</button>
+    <a href="http://127.0.0.1:8000/login/home"><input type="button" value="Return" class="home"></a>
+</form>
+</div>
+</body>
+</html>

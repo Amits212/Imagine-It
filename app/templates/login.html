@@ -1,0 +1,17 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet" href="{% static 'myfirst.css' %}">
+<body>
+<h1>Welcome to ImagineiT</h1>
+<form class="l" action="{% url 'home' %}">
+  <label class="lable">Username:</label><br>
+  <input type="text" id="username" class="input"><br>
+  <label class="lable">Password:</label><br>
+  <input type="text" class="input"><br><br>
+  <input type="submit" value="Submit" class="submit">
+</form>
+<script>
+</script>
+</body>
+</html>         
